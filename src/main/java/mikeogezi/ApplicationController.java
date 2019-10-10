@@ -61,6 +61,7 @@ public class ApplicationController {
         }
         else {
             response.setType(ResponseType.FAILURE);
+            response.setResponseMessage("ACCOUNT_NOT_FOUND");
             status = HttpStatus.NOT_FOUND;
         }
 
@@ -94,6 +95,7 @@ public class ApplicationController {
         }
         else {
             response.setType(ResponseType.FAILURE);
+            response.setResponseMessage("TRANSACTION_NOT_FOUND");
             status = HttpStatus.NOT_FOUND;
         }
 
