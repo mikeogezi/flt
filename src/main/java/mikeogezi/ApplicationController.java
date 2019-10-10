@@ -34,6 +34,11 @@ public class ApplicationController {
     @Autowired
     TransactionDao transactionDao;
 
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public String index () {
+        return "Flutterwave Test";
+    }
+
     @RequestMapping(value = "/api/accountEnquiry", method = RequestMethod.POST)
     public ResponseEntity<AccountEnquiryResponse> makeAccountEnquiry (@Valid @RequestBody AccountEnquiryRequest request) {
         log.info("AccountEnquiryRequest: {}", gson.toJson(request));
