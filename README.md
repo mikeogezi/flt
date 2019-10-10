@@ -7,4 +7,4 @@
 
 #### To run simply import into IntelliJ IDEA, Build and Run 
 
-#### To test import the collection in the file ```Flutterwave Test.postman_collection.json``` into postman and run the collection
+#### To test, import the collection in the file ```Flutterwave Test.postman_collection.json``` into postman and run the collection
