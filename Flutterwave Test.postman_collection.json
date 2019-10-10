@@ -1,0 +1,203 @@
+{
+	"info": {
+		"_postman_id": "8f20772d-d5bf-4354-b2af-01cc7cf8067b",
+		"name": "Flutterwave Test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Account Enquiry Request",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"token\": \"706a7698-eaef-11e9-81b4-2a2ae2dbcce4\",\n\t\"accountNumber\": \"0123456789\",\n\t\"bankCode\": \"058\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/accountEnquiry",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"accountEnquiry"
+					]
+				},
+				"description": "Checks if the user with the `accountNumber` and `bankCode` provided exists"
+			},
+			"response": []
+		},
+		{
+			"name": "Transfer Request Resulting In Success",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"token\": \"21f88258-eaf3-11e9-81b4-2a2ae2dbcce4\",\n\t\"fromAccountNumber\": \"0123456789\",\n\t\"fromBankCode\": \"058\",\n\t\"toAccountNumber\": \"1122334455\",\n\t\"toBankCode\": \"076\",\n\t\"amount\": 5,\n\t\"narration\": \"Test transaction\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/transfer?resultIn=success",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"transfer"
+					],
+					"query": [
+						{
+							"key": "resultIn",
+							"value": "success"
+						}
+					]
+				},
+				"description": "This request will always be succesful"
+			},
+			"response": []
+		},
+		{
+			"name": "Transfer Request Resulting In Failure",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"token\": \"2e5a0760-eaf3-11e9-81b4-2a2ae2dbcce4\",\n\t\"fromAccountNumber\": \"0123456789\",\n\t\"fromBankCode\": \"058\",\n\t\"toAccountNumber\": \"1122334455\",\n\t\"toBankCode\": \"076\",\n\t\"amount\": 5,\n\t\"narration\": \"Test transaction\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/transfer?resultIn=failure",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"transfer"
+					],
+					"query": [
+						{
+							"key": "resultIn",
+							"value": "failure"
+						}
+					]
+				},
+				"description": "This request will always fail"
+			},
+			"response": []
+		},
+		{
+			"name": "Transfer Request Resulting In Error",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"token\": \"376d92ea-eaf3-11e9-81b4-2a2ae2dbcce4\",\n\t\"fromAccountNumber\": \"0123456789\",\n\t\"fromBankCode\": \"058\",\n\t\"toAccountNumber\": \"1122334455\",\n\t\"toBankCode\": \"076\",\n\t\"amount\": 5,\n\t\"narration\": \"Test transaction\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/transfer?resultIn=error",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"transfer"
+					],
+					"query": [
+						{
+							"key": "resultIn",
+							"value": "error"
+						}
+					]
+				},
+				"description": "- Tests a transfer request that results in an error. The error could be due to a processing error, timeout or something else. \n- A requery of the transaction is carried out to confirm the status of the transaction. If the requery shows that the transaction was actually successful then the status of the response reflects this and if the transaction was found to have failed or was not found on the database it is taken as a failed transaction.\n- This all happens during the transfer request.\n- This request could return either, success or failure. The probabiltiy of success to failure is about 33% to 67%"
+			},
+			"response": []
+		},
+		{
+			"name": "Transaction Requery",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/transactionRequery/10-10-2019-11740697-ed92-43fc-9d96-81c41ba3a77d?token=c61e7a3e-eafa-11e9-81b4-2a2ae2dbcce4",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"transactionRequery",
+						"10-10-2019-11740697-ed92-43fc-9d96-81c41ba3a77d"
+					],
+					"query": [
+						{
+							"key": "token",
+							"value": "c61e7a3e-eafa-11e9-81b4-2a2ae2dbcce4"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
